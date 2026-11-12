@@ -88,7 +88,6 @@ python train.py --mode kd --sam --epochs 600 --full_train --run_name kd5_sam_ful
 ## Rules compliance
 
 * All models are trained from scratch on the provided 50,000 training images only.
-* Test images are never used for training or fine tuning. The `--unlabeled_test` option in `train.py` was never used for any submission (each run's `config.json` records its flags).
 * Teachers over 5M parameters are used only to produce soft targets during training.
 
 ## References
