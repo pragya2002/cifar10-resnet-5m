@@ -18,6 +18,7 @@ Final private leaderboard: 0.872, 34th of 81 teams. The full list of runs is in 
 | Path | What it is |
 | --- | --- |
 | `train.py` | Training, distillation, TTA inference and `submission.csv` writer. Identical to the `%%writefile train.py` cell in the notebooks |
+| `notebooks/results_summary.ipynb` | **Start here.** Builds the final model and prints its trainable parameter count (4,806,954) and the final test accuracy (87.2% private, 89.7% public), and plots validation vs test accuracy for every submitted model. Runs on CPU in seconds |
 | `notebooks/explore_session1.ipynb` | Runs `kd1p_sam_600` (final submission) and `kd5_lightreg_600` |
 | `notebooks/explore_session2.ipynb` | Runs `pyr164_kd5_600` (PyramidNet-164 ShakeDrop student, 4,924,834 params) |
 | `notebooks/cifar10_teacher_colab.ipynb` | First pipeline (v1): trains the WRN-28-10 teacher and a distilled WRN-22 student; its saved outputs show the trainable parameter count (4,806,954) and validation accuracy with TTA |
