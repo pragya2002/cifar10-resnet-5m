@@ -21,6 +21,8 @@ Final private leaderboard: 0.872, 34th of 81 teams. The full list of runs is in 
 | `notebooks/explore_session1.ipynb` | Runs `kd1p_sam_600` (final submission) and `kd5_lightreg_600` |
 | `notebooks/explore_session2.ipynb` | Runs `pyr164_kd5_600` (PyramidNet-164 ShakeDrop student, 4,924,834 params) |
 | `notebooks/cifar10_teacher_colab.ipynb` | First pipeline (v1): trains the WRN-28-10 teacher and a distilled WRN-22 student; its saved outputs show the trainable parameter count (4,806,954) and validation accuracy with TTA |
+| `notebooks/teacher_pyramid_colab_B.ipynb` | Trains the PyramidNet-272 teacher, then `kd5_sam_600` (5 teachers, 45k split, 98.12% val); outputs show each run's summary |
+| `notebooks/teacher_shake_colab_B.ipynb` | Trains the Shake-Shake teacher, then `kd4_sam_600`, `kd4_sam_full600` and `kd5_sam_full600` (final submission); outputs show the 4,806,954 parameter count |
 | `requirements.txt` | Python packages (Colab already has them) |
 
 ## Setup
@@ -47,11 +49,11 @@ python train.py --mode teacher --run_name wrn_teacher --arch wrn --depth 28 --wi
 
 ```
 # Shake-Shake 26 2x96d and PyramidNet-272 (alpha 200) with ShakeDrop, about 26.2M params each
-python train.py --mode teacher --run_name shake_teacher   --arch shake   --depth 26  --widths 96  --out_dir OUT --cache OUT/data_cache.npz
-python train.py --mode teacher --run_name pyramid_teacher --arch pyramid --depth 272 --widths 200 --shakedrop 0.5 --out_dir OUT --cache OUT/data_cache.npz
+python train.py --mode teacher --run_name shake_teacher   --arch shake   --depth 26  --widths 96  --epochs 300 --out_dir OUT --cache OUT/data_cache.npz
+python train.py --mode teacher --run_name pyramid_teacher --arch pyramid --depth 272 --widths 200 --shakedrop 0.5 --wd 1e-4 --epochs 300 --out_dir OUT --cache OUT/data_cache.npz
 ```
 
-The WRN-28-10 teachers used 200 epochs (the default). Each run's exact settings, including epochs and SAM for the Shake-Shake and PyramidNet teachers, are saved in its `config.json`.
+The WRN-28-10 teachers used 200 epochs (the default); the Shake-Shake and PyramidNet teachers used 300. Validation with TTA: WRN-28-10 97.72% (seeds 1 and 2), Shake-Shake 97.88%, PyramidNet-272 98.42%.
 
 2. Distill the WRN-22 students (WRN-22 72/144/264 is the default architecture):
 
