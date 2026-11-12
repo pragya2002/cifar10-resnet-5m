@@ -17,9 +17,10 @@ Final private leaderboard: 0.872, 34th of 81 teams. The full list of runs is in 
 
 | Path | What it is |
 | --- | --- |
-| `train.py` | Training, distillation, TTA inference and submission writer (extracted from the `%%writefile train.py` cell of the notebooks) |
-| `notebooks/` | The Colab notebooks used to run the experiments |
-| `results/` | `config.json` (all arguments) for the final runs |
+| `train.py` | Training, distillation, TTA inference and `submission.csv` writer. Identical to the `%%writefile train.py` cell in the notebooks |
+| `notebooks/explore_session1.ipynb` | Runs `kd1p_sam_600` (final submission) and `kd5_lightreg_600` |
+| `notebooks/explore_session2.ipynb` | Runs `pyr164_kd5_600` (PyramidNet-164 ShakeDrop student, 4,924,834 params) |
+| `requirements.txt` | Python packages (Colab already has them) |
 
 ## Setup
 
@@ -43,7 +44,13 @@ Every run prints the trainable parameter count and asserts it is at most 5,000,0
 python train.py --mode teacher --run_name wrn_teacher --arch wrn --depth 28 --widths 160,320,640 --dropout 0.3 --out_dir OUT --cache OUT/data_cache.npz
 ```
 
-The Shake-Shake 26 2x96d and PyramidNet-272 ShakeDrop teachers were trained with `--arch shake` and `--arch pyramid`; their exact commands are in the notebooks.
+```
+# Shake-Shake 26 2x96d and PyramidNet-272 (alpha 200) with ShakeDrop, about 26.2M params each
+python train.py --mode teacher --run_name shake_teacher   --arch shake   --depth 26  --widths 96  --out_dir OUT --cache OUT/data_cache.npz
+python train.py --mode teacher --run_name pyramid_teacher --arch pyramid --depth 272 --widths 200 --shakedrop 0.5 --out_dir OUT --cache OUT/data_cache.npz
+```
+
+The WRN-28-10 teachers used 200 epochs (the default). Each run's exact settings, including epochs and SAM for the Shake-Shake and PyramidNet teachers, are saved in its `config.json`.
 
 2. Distill the WRN-22 students (WRN-22 72/144/264 is the default architecture):
 
