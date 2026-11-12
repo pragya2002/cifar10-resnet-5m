@@ -44,13 +44,13 @@ Every run prints the trainable parameter count and asserts it is at most 5,000,0
 
 ```
 # WRN-28-10, about 36.5M params, trained three times with different seeds (run names wrn_teacher, wrn_teacher_s1, wrn_teacher_s2)
-python train.py --mode teacher --run_name wrn_teacher --arch wrn --depth 28 --widths 160,320,640 --dropout 0.3 --out_dir OUT --cache OUT/data_cache.npz
+python train.py --mode teacher --run_name wrn_teacher --arch wrn --depth 28 --widths 160,320,640 --dropout 0.3 --out_dir OUT --cache OUT/data_cache.npz --data_root DATA
 ```
 
 ```
 # Shake-Shake 26 2x96d and PyramidNet-272 (alpha 200) with ShakeDrop, about 26.2M params each
-python train.py --mode teacher --run_name shake_teacher   --arch shake   --depth 26  --widths 96  --epochs 300 --out_dir OUT --cache OUT/data_cache.npz
-python train.py --mode teacher --run_name pyramid_teacher --arch pyramid --depth 272 --widths 200 --shakedrop 0.5 --wd 1e-4 --epochs 300 --out_dir OUT --cache OUT/data_cache.npz
+python train.py --mode teacher --run_name shake_teacher   --arch shake   --depth 26  --widths 96  --epochs 300 --out_dir OUT --cache OUT/data_cache.npz --data_root DATA
+python train.py --mode teacher --run_name pyramid_teacher --arch pyramid --depth 272 --widths 200 --shakedrop 0.5 --wd 1e-4 --epochs 300 --out_dir OUT --cache OUT/data_cache.npz --data_root DATA
 ```
 
 The WRN-28-10 teachers used 200 epochs (the default); the Shake-Shake and PyramidNet teachers used 300. Validation with TTA: WRN-28-10 97.72% (seeds 1 and 2), Shake-Shake 97.88%, PyramidNet-272 98.42%.
