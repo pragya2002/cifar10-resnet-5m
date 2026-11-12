@@ -87,9 +87,12 @@ python train.py --mode kd --sam --epochs 600 --full_train --run_name kd5_sam_ful
 ## Rules compliance
 
 * All models are trained from scratch on the provided 50,000 training images only.
-* Test images are never used for training, fine tuning or model selection. The `--unlabeled_test` option in `train.py` was never used for any submission.
+* Test images are never used for training or fine tuning. The `--unlabeled_test` option in `train.py` was never used for any submission (each run's `config.json` records its flags).
 * Teachers over 5M parameters are used only to produce soft targets during training.
 
 ## References
 
-He et al., Deep Residual Learning (2016) and Identity Mappings (2016); Zagoruyko and Komodakis, Wide Residual Networks (2016); Hinton et al., Distilling the Knowledge in a Neural Network (2015); Foret et al., SAM (2021); Han et al., PyramidNet (2017); Yamada et al., ShakeDrop (2019); Gastaldi, Shake-Shake (2017); Muller and Hutter, TrivialAugment (2021).
+All code in this repository was written for this project; no external code or checkpoints were copied. The methods it implements come from:
+
+
+He et al., Deep Residual Learning (2016) and Identity Mappings (2016); Zagoruyko and Komodakis, Wide Residual Networks (2016); Hinton et al., Distilling the Knowledge in a Neural Network (2015); Foret et al., SAM (2021); Han et al., PyramidNet (2017); Yamada et al., ShakeDrop (2019); Gastaldi, Shake-Shake (2017); Muller and Hutter, TrivialAugment (2021); Hendrycks et al., AugMix (2020); Zhang et al., mixup (2018); Yun et al., CutMix (2019).
